@@ -62,7 +62,7 @@ class Pyroscope < Formula
           <string>#{plist_name}</string>
           <key>ProgramArguments</key>
           <array>
-            <string>#{opt_bin}/pyroscope</string>
+            <string>#{bin}/pyroscope</string>
             <string>server</string>
             <string>-config</string>
             <string>#{etc}/pyroscope/server.yml</string>
