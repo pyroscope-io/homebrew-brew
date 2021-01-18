@@ -41,7 +41,7 @@ class Pyroscope < Formula
 
   def pyroscope_conf; <<~EOS
     ---
-    storage-path: #{var}/pyroscope
+    storage-path: #{var}/lib/pyroscope
   EOS
   end
 
