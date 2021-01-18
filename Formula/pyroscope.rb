@@ -27,17 +27,25 @@ class Pyroscope < Formula
     on_macos do
       bin.install "bin/pyroscope"
     end
-
-    (etc/"pyroscope").mkpath
-    etc.install "scripts/packages/server.yml" => "pyroscope/server.yml"
   end
 
   def post_install
     (var/"log/pyroscope").mkpath
     (var/"lib/pyroscope").mkpath
+    (etc/"pyroscope").mkpath
+
+    if !(File.exist?((etc/"pyroscope/server.yml"))) then
+      (etc/"pyroscope/server.yml").write pyroscope_conf
+    end
   end
 
-  plist_options manual: "pyroscope server --config=#{HOMEBREW_PREFIX}/etc/pyroscope/server.yml"
+  def pyroscope_conf; <<~EOS
+    ---
+    storage-path: #{var}/pyroscope
+  EOS
+  end
+
+  plist_options manual: "pyroscope server -config #{HOMEBREW_PREFIX}/etc/pyroscope/server.yml"
 
   def plist
     <<~EOS
@@ -56,7 +64,7 @@ class Pyroscope < Formula
           <array>
             <string>#{opt_bin}/pyroscope</string>
             <string>server</string>
-            <string>--config</string>
+            <string>-config</string>
             <string>#{etc}/pyroscope/server.yml</string>
           </array>
           <key>RunAtLoad</key>
