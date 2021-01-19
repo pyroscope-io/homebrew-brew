@@ -1,8 +1,8 @@
 class Pyroscope < Formula
   desc "Open source continuous profiling software"
   homepage "https://pyroscope.io"
-  url "https://dl.pyroscope.io/release/pyroscope-0.0.13-source.tar.gz"
-  sha256 "cdda4810f9f1865a75af0043291f6d8ed0a328cc64d8bb42c35f06f84243f5c6"
+  url "https://dl.pyroscope.io/release/pyroscope-0.0.14-source.tar.gz"
+  sha256 "761cb714ae5477307f9733cd74ece5074aae5b7db915103ceb9506317eb7dd53"
   license "Apache-2.0"
   head "https://github.com/pyroscope-io/pyroscope.git", :branch => "main"
 
@@ -16,8 +16,8 @@ class Pyroscope < Formula
     cellar :any_skip_relocation
     root_url "https://dl.pyroscope.io/homebrew"
 
-    sha256 "108218780307500108895b403f7b0f63e441d3e930cf383da2346daa340af78b" => :catalina
-    sha256 "6206ede6a9754704878aadcbb9b187ebe40cb6858af7315f68c912cd1233961b" => :mojave
+    sha256 "7a6f199cbd58aca82b6dad9e01d3c4d1faca936624086f4dbd120af0fa76b899" => :catalina
+    sha256 "ac3afc1da836517db5a9512ec6c60ea728df5b38162cc3f0a05daa3b1e6fb7a2" => :mojave
   end
 
   def install
