@@ -4,25 +4,24 @@ class Pyroscope < Formula
   url "https://dl.pyroscope.io/release/pyroscope-0.0.28-source.tar.gz"
   sha256 "e3dd1be7b9434172b10b1bb22bca3b7ee9330a0537074c9aa654723436e980f0"
   license "Apache-2.0"
-  head "https://github.com/pyroscope-io/pyroscope.git", :branch => "main"
+  head "https://github.com/pyroscope-io/pyroscope.git", branch: "main"
+
+  bottle do
+    root_url "https://dl.pyroscope.io/homebrew"
+
+    sha256 cellar: :any_skip_relocation, catalina: "6cdba220eef60067010decc51263a412116467125f0e68fc8b5a3361f3afa396"
+    sha256 cellar: :any_skip_relocation, mojave:   "855a508b686bc86d9efb7ffe309d2fc410786d68dc7f53c4ec4ae84fd1b32b8f"
+  end
 
   depends_on "go" => :build
   depends_on "node" => :build
-  depends_on "yarn" => :build
   depends_on "rust" => :build
+  depends_on "yarn" => :build
   depends_on "zstd" => :build
 
-  bottle do
-    cellar :any_skip_relocation
-    root_url "https://dl.pyroscope.io/homebrew"
-
-    sha256 "6cdba220eef60067010decc51263a412116467125f0e68fc8b5a3361f3afa396" => :catalina
-    sha256 "855a508b686bc86d9efb7ffe309d2fc410786d68dc7f53c4ec4ae84fd1b32b8f" => :mojave
-  end
-
   def install
-    system "make build-rust-dependencies"
-    system "make build-release"
+    system "make", "build-rust-dependencies"
+    system "make", "build-release"
 
     on_macos do
       bin.install "bin/pyroscope"
@@ -34,15 +33,14 @@ class Pyroscope < Formula
     (var/"lib/pyroscope").mkpath
     (etc/"pyroscope").mkpath
 
-    if !(File.exist?((etc/"pyroscope/server.yml"))) then
-      (etc/"pyroscope/server.yml").write pyroscope_conf
-    end
+    (etc/"pyroscope/server.yml").write pyroscope_conf unless File.exist?((etc/"pyroscope/server.yml"))
   end
 
-  def pyroscope_conf; <<~EOS
-    ---
-    storage-path: #{var}/lib/pyroscope
-  EOS
+  def pyroscope_conf
+    <<~EOS
+      ---
+      storage-path: #{var}/lib/pyroscope
+    EOS
   end
 
   plist_options manual: "pyroscope server -config #{HOMEBREW_PREFIX}/etc/pyroscope/server.yml"
