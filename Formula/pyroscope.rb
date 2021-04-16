@@ -97,7 +97,7 @@ class Pyroscope < Formula
     r, w, pid = PTY.spawn(bin/"pyroscope", "-api-bind-addr :50100")
 
     listening = Timeout.timeout(10) do
-      r.each.find { |l| l.match?(/starting HTTP server/) }
+      r.each.find { |l| l.include?("starting HTTP server") }
     end
 
     Process.kill("TERM", pid)
