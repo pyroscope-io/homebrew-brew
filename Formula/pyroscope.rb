@@ -9,10 +9,10 @@ class Pyroscope < Formula
   bottle do
     root_url "https://dl.pyroscope.io/homebrew"
 
-    sha256 cellar: :any_skip_relocation, arm64_big_sur: "b741a9d291a960f298547f238a3d5bf59234c37479a9dd4a12e9a7a115b99e34"
-    sha256 cellar: :any_skip_relocation, big_sur:       "b741a9d291a960f298547f238a3d5bf59234c37479a9dd4a12e9a7a115b99e34"
-    sha256 cellar: :any_skip_relocation, catalina:      "b741a9d291a960f298547f238a3d5bf59234c37479a9dd4a12e9a7a115b99e34"
-    sha256 cellar: :any_skip_relocation, mojave:        "4142ec992cff6d2f5cc677b403593c35750a640d2af1ce88f188362176ba01e1"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur: "24d5ab4b0eea957fdac7b76b5439e3ebacb8a5493db7815a453ea38142a7b692"
+    sha256 cellar: :any_skip_relocation, big_sur:       "ce0bdbfdc6ca80504f69fa5ed37e06b490976b28d65cc5c6d3508d0558f9ae0e"
+    sha256 cellar: :any_skip_relocation, catalina:      "862861d059aad27933a4638a98a5c41f6c8c5803ee6db7014498f1eaad39a9df"
+    sha256 cellar: :any_skip_relocation, mojave:        "6c26549b82ea900976784b3fc7723d76798e3eeddb26ebadd8665bfcffa72b6a"
   end
 
   depends_on "go" => :build
