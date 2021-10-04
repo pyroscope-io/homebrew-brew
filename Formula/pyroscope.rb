@@ -10,8 +10,6 @@ class Pyroscope < Formula
     root_url "https://dl.pyroscope.io/homebrew"
 
     sha256 cellar: :any_skip_relocation, arm64_big_sur: "d172bbbeea1dd2ef58f02821e42ad79fa96cf938f19c9f524dc3495e978283f4"
-    sha256 cellar: :any_skip_relocation, big_sur:       "584adeeb30dcd2939b2d2e6c60d77f6f6e73e54653c352fa947483ff9e82ff16"
-    sha256 cellar: :any_skip_relocation, catalina:      "f5c466ff4a998c6b6cf4ea79db836e503b74531274143c7c545a5cf184e5f493"
     sha256 cellar: :any_skip_relocation, mojave:        "43005e9efbc595f853002217c91c86ff85cae1e69ae7efcf243b61f2b30fdbec"
   end
 
