@@ -1,16 +1,16 @@
 class Pyroscope < Formula
   desc "Open source continuous profiling software"
   homepage "https://pyroscope.io"
-  url "https://dl.pyroscope.io/release/pyroscope-0.0.41-source.tar.gz"
-  sha256 "290210cc3435c68941f801e0881609e08af050e4828e21a6c8ace9c03300b5cb"
+  url "https://dl.pyroscope.io/release/pyroscope-0.1.0-source.tar.gz"
+  sha256 "ea6b340847b188e034e8c76d4fc4da4548ea6c28da1d5df28a12e85283808d73"
   license "Apache-2.0"
   head "https://github.com/pyroscope-io/pyroscope.git", branch: "main"
 
   bottle do
     root_url "https://dl.pyroscope.io/homebrew"
 
-    sha256 cellar: :any_skip_relocation, arm64_big_sur: "d172bbbeea1dd2ef58f02821e42ad79fa96cf938f19c9f524dc3495e978283f4"
-    sha256 cellar: :any_skip_relocation, mojave:        "43005e9efbc595f853002217c91c86ff85cae1e69ae7efcf243b61f2b30fdbec"
+    sha256 cellar: :any_skip_relocation, arm64_big_sur: "d10a41373d78b4535216a9e7ae6ffef108bb7a00ef27da03a3bec48be130cc3d"
+    sha256 cellar: :any_skip_relocation, mojave:        "09d4e4727d28b0a0e94f842336398d83440fc8b4369a5caf879b9a49e9c1b283"
   end
 
   depends_on "go" => :build
