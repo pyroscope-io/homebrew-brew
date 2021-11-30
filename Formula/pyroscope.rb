@@ -25,6 +25,7 @@ class Pyroscope < Formula
     else
       system "make", "build-rust-dependencies"
     end
+    system "make", "install-build-web-dependencies"
     system "make", "build-release"
 
     on_macos do
