@@ -10,7 +10,7 @@ class Pyroscope < Formula
     root_url "https://dl.pyroscope.io/homebrew"
 
     sha256 cellar: :any_skip_relocation, arm64_big_sur: "978e628675713413b7a1e1ba89b4aceed3926d5a8a883115ceb9badfac77697f"
-    sha256 cellar: :any_skip_relocation, big_sur:        "9baf581273e38f40e039b7d0f2a93fc16073a1a137a0a87db9a6c12bd8e63366"
+    sha256 cellar: :any_skip_relocation, big_sur:       "59779853abbd49840795beede17103524cd585b0cc4ace3fa63e355e5bfca4d7"
   end
 
   depends_on "go" => :build
