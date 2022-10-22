@@ -20,6 +20,7 @@ class Pyroscope < Formula
   depends_on "zstd" => :build
 
   def install
+    system "yarn", "config", "set", "ignore-engines", "true"
     system "make", "install-build-web-dependencies"
     system "make", "build-release"
 
