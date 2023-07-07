@@ -46,42 +46,16 @@ class Pyroscope < Formula
 
   plist_options manual: "pyroscope server -config #{HOMEBREW_PREFIX}/etc/pyroscope/server.yml"
 
-  def plist
-    <<~EOS
-      <?xml version="1.0" encoding="UTF-8"?>
-      <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-      <plist version="1.0">
-        <dict>
-          <key>KeepAlive</key>
-          <dict>
-            <key>SuccessfulExit</key>
-            <false/>
-          </dict>
-          <key>Label</key>
-          <string>#{plist_name}</string>
-          <key>ProgramArguments</key>
-          <array>
-            <string>#{bin}/pyroscope</string>
-            <string>server</string>
-            <string>-config</string>
-            <string>#{etc}/pyroscope/server.yml</string>
-          </array>
-          <key>RunAtLoad</key>
-          <true/>
-          <key>WorkingDirectory</key>
-          <string>#{var}/lib/pyroscope</string>
-          <key>StandardErrorPath</key>
-          <string>#{var}/log/pyroscope/server-stderr.log</string>
-          <key>StandardOutPath</key>
-          <string>#{var}/log/pyroscope/server-stdout.log</string>
-          <key>SoftResourceLimits</key>
-          <dict>
-            <key>NumberOfFiles</key>
-            <integer>10240</integer>
-          </dict>
-        </dict>
-      </plist>
-    EOS
+  service do
+    environment_variables PATH: std_service_path_env
+    error_log_path "#{var}/log/pyroscope/server-stderr.log"
+    keep_alive succesful_exit: false
+    log_path "#{var}/log/pyroscope/server-stdout.log"
+    process_type :background
+    run "pyroscope server -config #{HOMEBREW_PREFIX}/etc/pyroscope/server.yml"
+    run_at_load true
+    run_type :immediate
+    working_dir "#{var}/lib/pyroscope"
   end
 
   test do
