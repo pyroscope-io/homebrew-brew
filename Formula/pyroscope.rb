@@ -24,7 +24,7 @@ class Pyroscope < Formula
     system "make", "install-build-web-dependencies"
     system "make", "build-release"
 
-    on_macos do
+   if OS.mac? do
       bin.install "bin/pyroscope"
     end
   end
