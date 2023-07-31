@@ -23,10 +23,7 @@ class Pyroscope < Formula
     system "yarn", "config", "set", "ignore-engines", "true"
     system "make", "install-build-web-dependencies"
     system "make", "build-release"
-
-   if OS.mac?
-      bin.install "bin/pyroscope"
-    end
+    bin.install "bin/pyroscope" if OS.mac?
   end
 
   def post_install
@@ -45,7 +42,7 @@ class Pyroscope < Formula
   end
 
   service do
-    run [bin/"pyroscope", "server", "-config", "#{HOMEBREW_PREFIX}/etc/pyroscope/server.yml"]
+    run [opt_bin/"pyroscope", "server", "-config", "#{HOMEBREW_PREFIX}/etc/pyroscope/server.yml"]
     environment_variables PATH: std_service_path_env
     keep_alive true
     error_log_path "#{var}/log/pyroscope/server-stderr.log"
