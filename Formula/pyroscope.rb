@@ -24,7 +24,7 @@ class Pyroscope < Formula
     system "make", "install-build-web-dependencies"
     system "make", "build-release"
 
-   if OS.mac? do
+   if OS.mac?
       bin.install "bin/pyroscope"
     end
   end
@@ -44,17 +44,14 @@ class Pyroscope < Formula
     EOS
   end
 
-  plist_options manual: "pyroscope server -config #{HOMEBREW_PREFIX}/etc/pyroscope/server.yml"
-
   service do
+    run [bin/"pyroscope", "server", "-config", "#{HOMEBREW_PREFIX}/etc/pyroscope/server.yml"]
     environment_variables PATH: std_service_path_env
+    keep_alive true
     error_log_path "#{var}/log/pyroscope/server-stderr.log"
-    keep_alive succesful_exit: false
     log_path "#{var}/log/pyroscope/server-stdout.log"
     process_type :background
-    run "pyroscope server -config #{HOMEBREW_PREFIX}/etc/pyroscope/server.yml"
-    run_at_load true
-    run_type :immediate
+
     working_dir "#{var}/lib/pyroscope"
   end
 
