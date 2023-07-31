@@ -23,10 +23,7 @@ class Pyroscope < Formula
     system "yarn", "config", "set", "ignore-engines", "true"
     system "make", "install-build-web-dependencies"
     system "make", "build-release"
-
-    on_macos do
-      bin.install "bin/pyroscope"
-    end
+    bin.install "bin/pyroscope" if OS.mac?
   end
 
   def post_install
@@ -44,44 +41,15 @@ class Pyroscope < Formula
     EOS
   end
 
-  plist_options manual: "pyroscope server -config #{HOMEBREW_PREFIX}/etc/pyroscope/server.yml"
+  service do
+    run [opt_bin/"pyroscope", "server", "-config", "#{HOMEBREW_PREFIX}/etc/pyroscope/server.yml"]
+    environment_variables PATH: std_service_path_env
+    keep_alive true
+    error_log_path "#{var}/log/pyroscope/server-stderr.log"
+    log_path "#{var}/log/pyroscope/server-stdout.log"
+    process_type :background
 
-  def plist
-    <<~EOS
-      <?xml version="1.0" encoding="UTF-8"?>
-      <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-      <plist version="1.0">
-        <dict>
-          <key>KeepAlive</key>
-          <dict>
-            <key>SuccessfulExit</key>
-            <false/>
-          </dict>
-          <key>Label</key>
-          <string>#{plist_name}</string>
-          <key>ProgramArguments</key>
-          <array>
-            <string>#{bin}/pyroscope</string>
-            <string>server</string>
-            <string>-config</string>
-            <string>#{etc}/pyroscope/server.yml</string>
-          </array>
-          <key>RunAtLoad</key>
-          <true/>
-          <key>WorkingDirectory</key>
-          <string>#{var}/lib/pyroscope</string>
-          <key>StandardErrorPath</key>
-          <string>#{var}/log/pyroscope/server-stderr.log</string>
-          <key>StandardOutPath</key>
-          <string>#{var}/log/pyroscope/server-stdout.log</string>
-          <key>SoftResourceLimits</key>
-          <dict>
-            <key>NumberOfFiles</key>
-            <integer>10240</integer>
-          </dict>
-        </dict>
-      </plist>
-    EOS
+    working_dir "#{var}/lib/pyroscope"
   end
 
   test do
