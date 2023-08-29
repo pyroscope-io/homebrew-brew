@@ -1,48 +1,78 @@
 class Pyroscope < Formula
   desc "Open source continuous profiling software"
-  homepage "https://pyroscope.io"
-  url "https://dl.pyroscope.io/release/pyroscope-0.37.2-source.tar.gz"
-  sha256 "a1262579518765c6b4c0fff3fc54995a90e68b6f684ff21c107347e6476e3690"
-  license "Apache-2.0"
-  head "https://github.com/pyroscope-io/pyroscope.git", branch: "main"
+  homepage "https://grafana.com/oss/pyroscope/"
+  url "https://github.com/grafana/pyroscope/archive/refs/tags/v1.0.0.tar.gz"
+  sha256 "94b0fbc0481e0d804c43fda5de24343023874cfe92def9d3b54fd1f20a7c2304"
+  license "AGPL-3.0-only"
+  head "https://github.com/grafana/pyroscope.git", branch: "main"
 
-  bottle do
-    root_url "https://dl.pyroscope.io/homebrew"
-
-    sha256 cellar: :any_skip_relocation, arm64_big_sur: "9b022ac7bd12999637e1dcb2b15ef5df53050dcf06da5394d03a1c295f229089"
-    sha256 cellar: :any_skip_relocation, big_sur:       "02598fe8945bfd7fb02683d5a8ee015abcda54946e5183fb2f48d1aa85c9dccc"
-  end
-
-  depends_on "go" => :build
-  depends_on "node" => :build
-  depends_on "rust" => :build
-  depends_on "yarn" => :build
-  depends_on "zstd" => :build
-
-  def install
-    system "yarn", "config", "set", "ignore-engines", "true"
-    system "make", "install-build-web-dependencies"
-    system "make", "build-release"
-    bin.install "bin/pyroscope" if OS.mac?
-  end
+  depends_on "git"
 
   def post_install
     (var/"log/pyroscope").mkpath
     (var/"lib/pyroscope").mkpath
     (etc/"pyroscope").mkpath
-
-    (etc/"pyroscope/server.yml").write pyroscope_conf unless File.exist?((etc/"pyroscope/server.yml"))
+    (etc/"pyroscope/config.yaml").write pyroscope_conf unless File.exist?((etc/"pyroscope/config.yaml"))
   end
 
   def pyroscope_conf
     <<~EOS
       ---
-      storage-path: #{var}/lib/pyroscope
+      pyroscopedb:
+        data_path: #{var}/lib/pyroscope
     EOS
   end
 
+  on_macos do
+    if Hardware::CPU.intel?
+      url "https://github.com/grafana/pyroscope/releases/download/v1.0.0/pyroscope_1.0.0_darwin_amd64.tar.gz"
+      sha256 "5048e31b6aa912e284b72d6087af88204102d814c066af63f210a1f48504beff"
+
+      def install
+        bin.install "pyroscope"
+      end
+    end
+    if Hardware::CPU.arm?
+      url "https://github.com/grafana/pyroscope/releases/download/v1.0.0/pyroscope_1.0.0_darwin_arm64.tar.gz"
+      sha256 "0fea948d10091a8442c97d872eff7c81ae73d522415118d6ce81bcb2c0f35fa5"
+
+      def install
+        bin.install "pyroscope"
+      end
+    end
+  end
+
+  on_linux do
+    if Hardware::CPU.intel?
+      url "https://github.com/grafana/pyroscope/download/v1.20.0/pyroscope_1.0.0_linux_amd64.tar.gz"
+      sha256 "e08b5c83558efc8e2e3a273f6166c93e3f7d0f8daa98557f2eb05c691480cf66"
+
+      def install
+        bin.install "pyroscope"
+      end
+    end
+    if Hardware::CPU.arm?
+      if Hardware::CPU.is_64_bit?
+        url "https://github.com/grafana/pyroscope/download/v1.20.0/pyroscope_1.0.0_linux_arm64.tar.gz"
+        sha256 "7360b4c12ffe789e8b12030b164c45299d4514f063d4c7b87498d2aa89c5b0af"
+
+        def install
+          bin.install "pyroscope"
+        end
+      end
+      if !Hardware::CPU.is_64_bit?
+        url "https://github.com/grafana/pyroscope/download/v1.20.0/pyroscope_1.0.0_linux_armv7.tar.gz"
+        sha256 "eaa32afde7306a4de06bd7a770a677edff733a7c9dbd21fa935c0f3f07850250"
+
+        def install
+          bin.install "pyroscope"
+        end
+      end
+    end
+  end
+
   service do
-    run [opt_bin/"pyroscope", "server", "-config", "#{HOMEBREW_PREFIX}/etc/pyroscope/server.yml"]
+    run [opt_bin/"pyroscope", "-config.file", "#{HOMEBREW_PREFIX}/etc/pyroscope/config.yaml"]
     environment_variables PATH: std_service_path_env
     keep_alive true
     error_log_path "#{var}/log/pyroscope/server-stderr.log"
@@ -53,25 +83,6 @@ class Pyroscope < Formula
   end
 
   test do
-    require "pty"
-    require "timeout"
-
-    # first test
     system bin/"pyroscope", "-v"
-
-    # avoid stepping on anything that may be present in this directory
-    tdir = File.join(Dir.pwd, "pyroscope-test")
-    Dir.mkdir(tdir)
-
-    r, w, pid = PTY.spawn(bin/"pyroscope", "-api-bind-addr :50100")
-
-    listening = Timeout.timeout(10) do
-      r.each.find { |l| l.include?("starting HTTP server") }
-    end
-
-    Process.kill("TERM", pid)
-    w.close
-    r.close
-    listening
   end
 end
