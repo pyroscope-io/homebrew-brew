@@ -53,6 +53,6 @@ class Profilecli < Formula
   end
 
   test do
-    system bin/"profilecli", "-v"
+    system bin/"profilecli", "--version"
   end
 end

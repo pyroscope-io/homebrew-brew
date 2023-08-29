@@ -79,6 +79,6 @@ class Pyroscope < Formula
   end
 
   test do
-    system bin/"pyroscope", "-v"
+    system bin/"pyroscope", "--version"
   end
 end
