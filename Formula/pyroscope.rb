@@ -1,10 +1,8 @@
 class Pyroscope < Formula
   desc "Open source continuous profiling software"
   homepage "https://grafana.com/oss/pyroscope/"
-  url "https://github.com/grafana/pyroscope/archive/refs/tags/v1.0.0.tar.gz"
-  sha256 "94b0fbc0481e0d804c43fda5de24343023874cfe92def9d3b54fd1f20a7c2304"
+  version "1.0.0"
   license "AGPL-3.0-only"
-  head "https://github.com/grafana/pyroscope.git", branch: "main"
 
   depends_on "git"
 
