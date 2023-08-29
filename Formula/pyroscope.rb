@@ -1,19 +1,8 @@
 class Pyroscope < Formula
   desc "Open source continuous profiling software"
   homepage "https://grafana.com/oss/pyroscope/"
-  url "https://github.com/grafana/pyroscope/archive/refs/tags/v1.0.0.tar.gz"
-  sha256 "94b0fbc0481e0d804c43fda5de24343023874cfe92def9d3b54fd1f20a7c2304"
+  version "1.0.0"
   license "AGPL-3.0-only"
-  head "https://github.com/grafana/pyroscope.git", branch: "main"
-
-  depends_on "git"
-
-  def post_install
-    (var/"log/pyroscope").mkpath
-    (var/"lib/pyroscope").mkpath
-    (etc/"pyroscope").mkpath
-    (etc/"pyroscope/config.yaml").write pyroscope_conf unless File.exist?((etc/"pyroscope/config.yaml"))
-  end
 
   def pyroscope_conf
     <<~EOS
@@ -44,7 +33,7 @@ class Pyroscope < Formula
 
   on_linux do
     if Hardware::CPU.intel?
-      url "https://github.com/grafana/pyroscope/download/v1.20.0/pyroscope_1.0.0_linux_amd64.tar.gz"
+      url "https://github.com/grafana/pyroscope/releases/download/v1.0.0/pyroscope_1.0.0_linux_amd64.tar.gz"
       sha256 "e08b5c83558efc8e2e3a273f6166c93e3f7d0f8daa98557f2eb05c691480cf66"
 
       def install
@@ -53,15 +42,15 @@ class Pyroscope < Formula
     end
     if Hardware::CPU.arm?
       if Hardware::CPU.is_64_bit?
-        url "https://github.com/grafana/pyroscope/download/v1.20.0/pyroscope_1.0.0_linux_arm64.tar.gz"
+        url "https://github.com/grafana/pyroscope/releases/download/v1.0.0/pyroscope_1.0.0_linux_arm64.tar.gz"
         sha256 "7360b4c12ffe789e8b12030b164c45299d4514f063d4c7b87498d2aa89c5b0af"
 
         def install
           bin.install "pyroscope"
         end
       end
-      if !Hardware::CPU.is_64_bit?
-        url "https://github.com/grafana/pyroscope/download/v1.20.0/pyroscope_1.0.0_linux_armv7.tar.gz"
+      unless Hardware::CPU.is_64_bit?
+        url "https://github.com/grafana/pyroscope/releases/download/v1.0.0/pyroscope_1.0.0_linux_armv7.tar.gz"
         sha256 "eaa32afde7306a4de06bd7a770a677edff733a7c9dbd21fa935c0f3f07850250"
 
         def install
@@ -69,6 +58,13 @@ class Pyroscope < Formula
         end
       end
     end
+  end
+
+  def post_install
+    (var/"log/pyroscope").mkpath
+    (var/"lib/pyroscope").mkpath
+    (etc/"pyroscope").mkpath
+    (etc/"pyroscope/config.yaml").write pyroscope_conf unless File.exist?((etc/"pyroscope/config.yaml"))
   end
 
   service do
@@ -83,6 +79,6 @@ class Pyroscope < Formula
   end
 
   test do
-    system bin/"pyroscope", "-v"
+    system bin/"pyroscope", "--version"
   end
 end
