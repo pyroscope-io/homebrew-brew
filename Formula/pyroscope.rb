@@ -8,13 +8,6 @@ class Pyroscope < Formula
 
   depends_on "git"
 
-  def post_install
-    (var/"log/pyroscope").mkpath
-    (var/"lib/pyroscope").mkpath
-    (etc/"pyroscope").mkpath
-    (etc/"pyroscope/config.yaml").write pyroscope_conf unless File.exist?((etc/"pyroscope/config.yaml"))
-  end
-
   def pyroscope_conf
     <<~EOS
       ---
@@ -60,7 +53,7 @@ class Pyroscope < Formula
           bin.install "pyroscope"
         end
       end
-      if !Hardware::CPU.is_64_bit?
+      unless Hardware::CPU.is_64_bit?
         url "https://github.com/grafana/pyroscope/download/v1.20.0/pyroscope_1.0.0_linux_armv7.tar.gz"
         sha256 "eaa32afde7306a4de06bd7a770a677edff733a7c9dbd21fa935c0f3f07850250"
 
@@ -69,6 +62,13 @@ class Pyroscope < Formula
         end
       end
     end
+  end
+
+  def post_install
+    (var/"log/pyroscope").mkpath
+    (var/"lib/pyroscope").mkpath
+    (etc/"pyroscope").mkpath
+    (etc/"pyroscope/config.yaml").write pyroscope_conf unless File.exist?((etc/"pyroscope/config.yaml"))
   end
 
   service do
