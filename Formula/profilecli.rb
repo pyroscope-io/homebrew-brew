@@ -1,3 +1,4 @@
+# Do not edit .rb file manually, edit .rb.tpl instead
 class Profilecli < Formula
   desc "Open source continuous profiling software"
   homepage "https://grafana.com/oss/pyroscope/"
