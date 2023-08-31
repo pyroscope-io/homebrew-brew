@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
@@ -21,6 +22,20 @@ type Shas struct {
 	LinuxAmd64  string
 	LinuxArm64  string
 	LinuxArmv7  string
+}
+
+func (s *Shas) Validate() {
+	b := must.NotError(json.Marshal(s))
+	m := make(map[string]string)
+	if err := json.Unmarshal(b, &m); err != nil {
+		panic(err)
+	}
+
+	for k, v := range m {
+		if v == "" {
+			panic(fmt.Errorf("empty value for %s", k))
+		}
+	}
 }
 
 func main() {
@@ -47,7 +62,9 @@ func main() {
 		b := &bytes.Buffer{}
 
 		txtTemplate := must.NotError(os.ReadFile(f))
-		err := must.NotError(template.New(name).Parse(string(txtTemplate))).Execute(b, checksums[name])
+		sha := checksums[name]
+		sha.Validate()
+		err := must.NotError(template.New(name).Parse(string(txtTemplate))).Execute(b, sha)
 		if err != nil {
 			panic(err)
 		}
