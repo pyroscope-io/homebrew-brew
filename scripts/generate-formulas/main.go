@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -11,6 +12,7 @@ import (
 	"strings"
 	"text/template"
 
+	"github.com/google/go-github/v55/github"
 	"github.com/jzelinskie/must"
 )
 
@@ -44,10 +46,52 @@ func main() {
 		return
 	}
 
-	tag := os.Args[1]
-	url := fmt.Sprintf("https://github.com/grafana/pyroscope/releases/download/%s/checksums.txt", tag)
+	githubToken := os.Getenv("GITHUB_TOKEN")
+	if githubToken == "" {
+		panic("Please specify GITHUB_TOKEN env variable")
+		return
+	}
 
-	res := must.NotError(http.Get(url))
+	// at this point the releases are not public, so we have to be logged in to github
+	//   and exchange a tag for a browser download url
+	ghClient := github.NewClient(nil).WithAuthToken(githubToken)
+	// orgs, _, err := client.Organizations.List(context.Background(), "willnorris", nil)
+	releases, _, err := ghClient.Repositories.ListReleases(context.Background(), "grafana", "pyroscope", nil)
+	if err != nil {
+		panic(err)
+	}
+
+	tag := os.Args[1]
+
+	var targetRelease *github.RepositoryRelease
+	for _, release := range releases {
+		releaseTag := release.GetTagName()
+		if releaseTag == tag {
+			targetRelease = release
+			break
+		}
+	}
+	if targetRelease == nil {
+		panic(fmt.Errorf("could not find release: %s", tag))
+	}
+
+	var assetUrl string
+	for _, asset := range targetRelease.Assets {
+		if asset.GetName() == "checksums.txt" {
+			assetUrl = asset.GetURL()
+			break
+		}
+	}
+
+	if assetUrl == "" {
+		panic(fmt.Errorf("could not find checksums.txt file in release: %s", tag))
+	}
+
+	fmt.Printf("Downloading checksums.txt from %s\n", assetUrl)
+
+	req := must.NotError(http.NewRequest("GET", assetUrl, nil))
+	req.Header.Set("Accept", "application/octet-stream")
+	res := must.NotError(ghClient.BareDo(context.Background(), req))
 	if res.StatusCode != 200 {
 		panic(fmt.Errorf("got status code %d", res.StatusCode))
 	}
