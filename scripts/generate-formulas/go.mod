@@ -1,4 +1,4 @@
-module generate-formulas
+module github.com/grafana/pyroscope/homebrew-brew/scripts/generate-formulas
 
 go 1.19
 
