@@ -2,7 +2,7 @@
 class Pyroscope < Formula
   desc "Open source continuous profiling software"
   homepage "https://grafana.com/oss/pyroscope/"
-  version "1.3.0"
+  version "1.4.0"
   license "AGPL-3.0-only"
 
   def pyroscope_conf
@@ -15,16 +15,16 @@ class Pyroscope < Formula
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/grafana/pyroscope/releases/download/v1.3.0/pyroscope_1.3.0_darwin_amd64.tar.gz"
-      sha256 "85e102ea90b298bbf3ec114c4e56e669435816d660dd22903f2ca3a01f2f8410"
+      url "https://github.com/grafana/pyroscope/releases/download/v1.4.0/pyroscope_1.4.0_darwin_amd64.tar.gz"
+      sha256 "6e694037ddd2252deede198c92569053874090a9620a9b37c61621c868d1bd9e"
 
       def install
         bin.install "pyroscope"
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/grafana/pyroscope/releases/download/v1.3.0/pyroscope_1.3.0_darwin_arm64.tar.gz"
-      sha256 "ad853c67ffe59fbf24357544fb2f99d050faad4a42f94b50c2f06a7c781a0734"
+      url "https://github.com/grafana/pyroscope/releases/download/v1.4.0/pyroscope_1.4.0_darwin_arm64.tar.gz"
+      sha256 "c5e62db1f2c895840aafa616731b4e405a0e9aed5600104f9f6138170c8a2314"
 
       def install
         bin.install "pyroscope"
@@ -34,8 +34,8 @@ class Pyroscope < Formula
 
   on_linux do
     if Hardware::CPU.intel?
-      url "https://github.com/grafana/pyroscope/releases/download/v1.3.0/pyroscope_1.3.0_linux_amd64.tar.gz"
-      sha256 "d073cf801724dc452abbf536695f717e09e72b6a106bbb0f82413e2a49b1e997"
+      url "https://github.com/grafana/pyroscope/releases/download/v1.4.0/pyroscope_1.4.0_linux_amd64.tar.gz"
+      sha256 "b3d0205926c83d1bb65450cecbd720c3c992341b417e5d59054b81000dc64090"
 
       def install
         bin.install "pyroscope"
@@ -43,16 +43,16 @@ class Pyroscope < Formula
     end
     if Hardware::CPU.arm?
       if Hardware::CPU.is_64_bit?
-        url "https://github.com/grafana/pyroscope/releases/download/v1.3.0/pyroscope_1.3.0_linux_arm64.tar.gz"
-        sha256 "b429f0c30c3221fa1c015343ee9e911db6d6da60fa25ed7cf62aca3bc9ead350"
+        url "https://github.com/grafana/pyroscope/releases/download/v1.4.0/pyroscope_1.4.0_linux_arm64.tar.gz"
+        sha256 "20c69186a7ea5b967f8e4889ea9f2ffaecdbf549e8c38aaac9649e0021cbe350"
 
         def install
           bin.install "pyroscope"
         end
       end
       unless Hardware::CPU.is_64_bit?
-        url "https://github.com/grafana/pyroscope/releases/download/v1.3.0/pyroscope_1.3.0_linux_armv7.tar.gz"
-        sha256 "a4fee3ebfdc3addc405da6d15a01e54f14761f24bb143d49d875dd05009023aa"
+        url "https://github.com/grafana/pyroscope/releases/download/v1.4.0/pyroscope_1.4.0_linux_armv7.tar.gz"
+        sha256 "35fa5c56b31a7254e0206b3d2e7dc2619a218e64502d8657ce6fab35015c45b5"
 
         def install
           bin.install "pyroscope"
