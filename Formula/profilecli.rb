@@ -2,21 +2,21 @@
 class Profilecli < Formula
   desc "Open source continuous profiling software"
   homepage "https://grafana.com/oss/pyroscope/"
-  version "1.10.1"
+  version "1.9.2"
   license "AGPL-3.0-only"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/grafana/pyroscope/releases/download/v1.10.1/profilecli_1.10.1_darwin_amd64.tar.gz"
-      sha256 "03817386cd52598a2b0a7dfdff214fff3ccc1d2fa1ffff9b33cf9cbe47d5634a"
+      url "https://github.com/grafana/pyroscope/releases/download/v1.9.2/profilecli_1.9.2_darwin_amd64.tar.gz"
+      sha256 "4f8f3391c2ff87894016c368ad8dc4ac5c2199639215b1fe6f2625fe01590e42"
 
       def install
         bin.install "profilecli"
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/grafana/pyroscope/releases/download/v1.10.1/profilecli_1.10.1_darwin_arm64.tar.gz"
-      sha256 "a2faa276050bd1faac882b6b68fa2f1ba989bc8259019c4998dbaa45fb84240a"
+      url "https://github.com/grafana/pyroscope/releases/download/v1.9.2/profilecli_1.9.2_darwin_arm64.tar.gz"
+      sha256 "12016959977ed5634af2c6e97238f51134c89daf70e2db5031e74e6d97a4ba0c"
 
       def install
         bin.install "profilecli"
@@ -26,8 +26,8 @@ class Profilecli < Formula
 
   on_linux do
     if Hardware::CPU.intel?
-      url "https://github.com/grafana/pyroscope/releases/download/v1.10.1/profilecli_1.10.1_linux_amd64.tar.gz"
-      sha256 "3467162a191ab04f0543ecdebd6418a39f39652aad182ec80bc68e9f9f288c20"
+      url "https://github.com/grafana/pyroscope/releases/download/v1.9.2/profilecli_1.9.2_linux_amd64.tar.gz"
+      sha256 "eb747d764e8167ae1fe12b3bb7824ae25a78220ec73e2509eddf9a803b00457f"
 
       def install
         bin.install "profilecli"
@@ -35,16 +35,16 @@ class Profilecli < Formula
     end
     if Hardware::CPU.arm?
       if Hardware::CPU.is_64_bit?
-        url "https://github.com/grafana/pyroscope/releases/download/v1.10.1/profilecli_1.10.1_linux_arm64.tar.gz"
-        sha256 "7a8b265f4edc90199c91e1eed624fc13769242c423cb8b5326ad296589d1f520"
+        url "https://github.com/grafana/pyroscope/releases/download/v1.9.2/profilecli_1.9.2_linux_arm64.tar.gz"
+        sha256 "8628218e6876cb1fd28c833a94fa631595b367e56863bffa03df7cd36cefbef5"
 
         def install
           bin.install "profilecli"
         end
       end
       unless Hardware::CPU.is_64_bit?
-        url "https://github.com/grafana/pyroscope/releases/download/v1.10.1/profilecli_1.10.1_linux_armv7.tar.gz"
-        sha256 "e02f4b11840cbdc0909fdaa65c996b3c032383126e91cf65dba77aba5b96b7fa"
+        url "https://github.com/grafana/pyroscope/releases/download/v1.9.2/profilecli_1.9.2_linux_armv7.tar.gz"
+        sha256 "155c0bae23d43081b1081a441d5b614ca256b0ae8537743551e29e8bc64797f1"
 
         def install
           bin.install "profilecli"
