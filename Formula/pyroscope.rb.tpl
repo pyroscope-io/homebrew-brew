@@ -50,14 +50,7 @@ class Pyroscope < Formula
           bin.install "pyroscope"
         end
       end
-      unless Hardware::CPU.is_64_bit?
-        url "https://github.com/grafana/pyroscope/releases/download/{{.Tag}}/pyroscope_{{.Version}}_linux_armv7.tar.gz"
-        sha256 "{{.LinuxArmv7}}"
-
-        def install
-          bin.install "pyroscope"
-        end
-      end
+      # Removed armv7 section as it's deprecated
     end
   end
 
