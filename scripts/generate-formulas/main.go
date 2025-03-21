@@ -23,7 +23,6 @@ type Shas struct {
 	DarwinArm64 string
 	LinuxAmd64  string
 	LinuxArm64  string
-	LinuxArmv7  string
 }
 
 func (s *Shas) Validate() {
@@ -166,8 +165,6 @@ func parseChecksums(checksums []byte, tag string) map[string]*Shas {
 			shasMapping[name].LinuxAmd64 = sha
 		} else if os == "linux" && arch == "arm64" {
 			shasMapping[name].LinuxArm64 = sha
-		} else if os == "linux" && arch == "armv7" {
-			shasMapping[name].LinuxArmv7 = sha
 		}
 	}
 	return shasMapping
