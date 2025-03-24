@@ -33,14 +33,12 @@ class Profilecli < Formula
         bin.install "profilecli"
       end
     end
-    if Hardware::CPU.arm?
-      if Hardware::CPU.is_64_bit?
-        url "https://github.com/grafana/pyroscope/releases/download/v1.13.0/profilecli_1.13.0_linux_arm64.tar.gz"
-        sha256 "e90c6b5514d8abb4b953de46b56756d46def6c7c5a2793c8ff4f60c405ef9fcb"
+    if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
+      url "https://github.com/grafana/pyroscope/releases/download/v1.13.0/profilecli_1.13.0_linux_arm64.tar.gz"
+      sha256 "e90c6b5514d8abb4b953de46b56756d46def6c7c5a2793c8ff4f60c405ef9fcb"
 
-        def install
-          bin.install "profilecli"
-        end
+      def install
+        bin.install "profilecli"
       end
       # Removed armv7 section as it's deprecated
     end

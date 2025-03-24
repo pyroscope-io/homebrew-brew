@@ -41,14 +41,12 @@ class Pyroscope < Formula
         bin.install "pyroscope"
       end
     end
-    if Hardware::CPU.arm?
-      if Hardware::CPU.is_64_bit?
-        url "https://github.com/grafana/pyroscope/releases/download/v1.13.0/pyroscope_1.13.0_linux_arm64.tar.gz"
-        sha256 "d0ebfce94615c77dddb6b78a48030f4c6cc1b476c0f21d9e25a662e8671d33d6"
+    if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
+      url "https://github.com/grafana/pyroscope/releases/download/v1.13.0/pyroscope_1.13.0_linux_arm64.tar.gz"
+      sha256 "d0ebfce94615c77dddb6b78a48030f4c6cc1b476c0f21d9e25a662e8671d33d6"
 
-        def install
-          bin.install "pyroscope"
-        end
+      def install
+        bin.install "pyroscope"
       end
       # Removed armv7 section as it's deprecated
     end
