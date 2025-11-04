@@ -2,21 +2,21 @@
 class Profilecli < Formula
   desc "Open source continuous profiling software"
   homepage "https://grafana.com/oss/pyroscope/"
-  version "1.15.0"
+  version "1.16.0"
   license "AGPL-3.0-only"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/grafana/pyroscope/releases/download/v1.15.0/profilecli_1.15.0_darwin_amd64.tar.gz"
-      sha256 "a2c7e693f42f5b8075f3b6da22321b58dcde05919fea26042b4b2a585bcdb626"
+      url "https://github.com/grafana/pyroscope/releases/download/v1.16.0/profilecli_1.16.0_darwin_amd64.tar.gz"
+      sha256 "04365eb99dc33f01d2f844b8fbfbed8fea08d4ff55c6223b1936b5eb37d34566"
 
       def install
         bin.install "profilecli"
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/grafana/pyroscope/releases/download/v1.15.0/profilecli_1.15.0_darwin_arm64.tar.gz"
-      sha256 "694316a691b140bb5ba044f7b8aff4ccba0b8f217cec0f31b37d5c61e1923707"
+      url "https://github.com/grafana/pyroscope/releases/download/v1.16.0/profilecli_1.16.0_darwin_arm64.tar.gz"
+      sha256 "730cc3598752cfcec40fd043f071329427e9fc1d04eb2a1e35fa48a5417c4430"
 
       def install
         bin.install "profilecli"
@@ -26,16 +26,16 @@ class Profilecli < Formula
 
   on_linux do
     if Hardware::CPU.intel?
-      url "https://github.com/grafana/pyroscope/releases/download/v1.15.0/profilecli_1.15.0_linux_amd64.tar.gz"
-      sha256 "1a7c1abef42614ba09595b06c6b41812ed984819399cd3e0a688efeb9202a15d"
+      url "https://github.com/grafana/pyroscope/releases/download/v1.16.0/profilecli_1.16.0_linux_amd64.tar.gz"
+      sha256 "6f011c4865821073c2c1a26554e406ced4fea998c862fdb05a6d15c613d9d5bd"
 
       def install
         bin.install "profilecli"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/grafana/pyroscope/releases/download/v1.15.0/profilecli_1.15.0_linux_arm64.tar.gz"
-      sha256 "554e20b2317b11e86174294233aad82883d1fc88e99c793067a786a69e985bd6"
+      url "https://github.com/grafana/pyroscope/releases/download/v1.16.0/profilecli_1.16.0_linux_arm64.tar.gz"
+      sha256 "75fed45bde185a78ce8353d844fe5bece123db2566b17a8868253ce57e6d81ba"
 
       def install
         bin.install "profilecli"
