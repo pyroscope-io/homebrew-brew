@@ -8,7 +8,7 @@ class Profilecli < Formula
   on_macos do
     if Hardware::CPU.intel?
       url "https://github.com/grafana/pyroscope/releases/download/v1.16.0/profilecli_1.16.0_darwin_amd64.tar.gz"
-      sha256 "04365eb99dc33f01d2f844b8fbfbed8fea08d4ff55c6223b1936b5eb37d34566"
+      sha256 "25ebb1db1fec8c3008c46c5cee52e199772efa41b58cb3c57477cc30b3fa8416"
 
       def install
         bin.install "profilecli"
@@ -16,7 +16,7 @@ class Profilecli < Formula
     end
     if Hardware::CPU.arm?
       url "https://github.com/grafana/pyroscope/releases/download/v1.16.0/profilecli_1.16.0_darwin_arm64.tar.gz"
-      sha256 "730cc3598752cfcec40fd043f071329427e9fc1d04eb2a1e35fa48a5417c4430"
+      sha256 "589e7cd74b44468be24d822a3a72b890786b017e48871ef13dee4a0f8b098f66"
 
       def install
         bin.install "profilecli"
@@ -27,7 +27,7 @@ class Profilecli < Formula
   on_linux do
     if Hardware::CPU.intel?
       url "https://github.com/grafana/pyroscope/releases/download/v1.16.0/profilecli_1.16.0_linux_amd64.tar.gz"
-      sha256 "6f011c4865821073c2c1a26554e406ced4fea998c862fdb05a6d15c613d9d5bd"
+      sha256 "a178d709fe59838ecb29b3abbef7fbb103a281c13bf2ffdf20795665b83a89b2"
 
       def install
         bin.install "profilecli"
@@ -35,7 +35,7 @@ class Profilecli < Formula
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
       url "https://github.com/grafana/pyroscope/releases/download/v1.16.0/profilecli_1.16.0_linux_arm64.tar.gz"
-      sha256 "75fed45bde185a78ce8353d844fe5bece123db2566b17a8868253ce57e6d81ba"
+      sha256 "167106ef568986c27dd625d821abc2ebbface0d92321367647e533ad99a5ba03"
 
       def install
         bin.install "profilecli"

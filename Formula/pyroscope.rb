@@ -16,7 +16,7 @@ class Pyroscope < Formula
   on_macos do
     if Hardware::CPU.intel?
       url "https://github.com/grafana/pyroscope/releases/download/v1.16.0/pyroscope_1.16.0_darwin_amd64.tar.gz"
-      sha256 "f6fd23a72acb646a3ae21f667d6b8b2b7b07d31a77e95c87d666effa142d405e"
+      sha256 "3b54522dbcb4594dc8c9dd991a8acea6f36c4394fb3d98184aee978a6ca91d24"
 
       def install
         bin.install "pyroscope"
@@ -24,7 +24,7 @@ class Pyroscope < Formula
     end
     if Hardware::CPU.arm?
       url "https://github.com/grafana/pyroscope/releases/download/v1.16.0/pyroscope_1.16.0_darwin_arm64.tar.gz"
-      sha256 "604b93134ba9de840c48dd8d8979e10dc75e8af7dbb972f03332de9de5ad517f"
+      sha256 "915e666f235728475d839fa82d1e35241261b822c5436ca58d839be647ae426a"
 
       def install
         bin.install "pyroscope"
@@ -35,7 +35,7 @@ class Pyroscope < Formula
   on_linux do
     if Hardware::CPU.intel?
       url "https://github.com/grafana/pyroscope/releases/download/v1.16.0/pyroscope_1.16.0_linux_amd64.tar.gz"
-      sha256 "848874aef5aa81f40af5c4d2673693b716c44e547e43850c6018527ff0e016f0"
+      sha256 "71f97dcc855880a42a76eeed10e36810caeea9a5e6a1ef86903e83b17795320d"
 
       def install
         bin.install "pyroscope"
@@ -43,7 +43,7 @@ class Pyroscope < Formula
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
       url "https://github.com/grafana/pyroscope/releases/download/v1.16.0/pyroscope_1.16.0_linux_arm64.tar.gz"
-      sha256 "71b7898847e6fd90bf6157cc3511eeb9a6747d99979ce3f334a8a265fa919b6e"
+      sha256 "4ee3bf05c23686675094d61ee0c3e20666988abed19920898eb5d2fe25ae79fc"
 
       def install
         bin.install "pyroscope"
