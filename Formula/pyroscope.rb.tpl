@@ -18,7 +18,7 @@ class Pyroscope < Formula
       url "https://github.com/grafana/pyroscope/releases/download/{{.Tag}}/pyroscope_{{.Version}}_darwin_amd64.tar.gz"
       sha256 "{{.DarwinAmd64}}"
 
-      def install
+      define_method :install do
         bin.install "pyroscope"
       end
     end
@@ -26,7 +26,7 @@ class Pyroscope < Formula
       url "https://github.com/grafana/pyroscope/releases/download/{{.Tag}}/pyroscope_{{.Version}}_darwin_arm64.tar.gz"
       sha256 "{{.DarwinArm64}}"
 
-      def install
+      define_method :install do
         bin.install "pyroscope"
       end
     end
@@ -37,7 +37,7 @@ class Pyroscope < Formula
       url "https://github.com/grafana/pyroscope/releases/download/{{.Tag}}/pyroscope_{{.Version}}_linux_amd64.tar.gz"
       sha256 "{{.LinuxAmd64}}"
 
-      def install
+      define_method :install do
         bin.install "pyroscope"
       end
     end
@@ -45,7 +45,7 @@ class Pyroscope < Formula
       url "https://github.com/grafana/pyroscope/releases/download/{{.Tag}}/pyroscope_{{.Version}}_linux_arm64.tar.gz"
       sha256 "{{.LinuxArm64}}"
 
-      def install
+      define_method :install do
         bin.install "pyroscope"
       end
     end
@@ -55,7 +55,7 @@ class Pyroscope < Formula
     (var/"log/pyroscope").mkpath
     (var/"lib/pyroscope").mkpath
     (etc/"pyroscope").mkpath
-    (etc/"pyroscope/config.yaml").write pyroscope_conf unless File.exist?((etc/"pyroscope/config.yaml"))
+    (etc/"pyroscope/config.yaml").write pyroscope_conf unless File.exist?(etc/"pyroscope/config.yaml")
   end
 
   service do
