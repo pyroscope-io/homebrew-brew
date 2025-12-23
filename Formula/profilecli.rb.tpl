@@ -10,7 +10,7 @@ class Profilecli < Formula
       url "https://github.com/grafana/pyroscope/releases/download/{{.Tag}}/profilecli_{{.Version}}_darwin_amd64.tar.gz"
       sha256 "{{.DarwinAmd64}}"
 
-      def install
+      define_method :install do
         bin.install "profilecli"
       end
     end
@@ -18,7 +18,7 @@ class Profilecli < Formula
       url "https://github.com/grafana/pyroscope/releases/download/{{.Tag}}/profilecli_{{.Version}}_darwin_arm64.tar.gz"
       sha256 "{{.DarwinArm64}}"
 
-      def install
+      define_method :install do
         bin.install "profilecli"
       end
     end
@@ -29,7 +29,7 @@ class Profilecli < Formula
       url "https://github.com/grafana/pyroscope/releases/download/{{.Tag}}/profilecli_{{.Version}}_linux_amd64.tar.gz"
       sha256 "{{.LinuxAmd64}}"
 
-      def install
+      define_method :install do
         bin.install "profilecli"
       end
     end
@@ -37,7 +37,7 @@ class Profilecli < Formula
       url "https://github.com/grafana/pyroscope/releases/download/{{.Tag}}/profilecli_{{.Version}}_linux_arm64.tar.gz"
       sha256 "{{.LinuxArm64}}"
 
-      def install
+      define_method :install do
         bin.install "profilecli"
       end
     end
